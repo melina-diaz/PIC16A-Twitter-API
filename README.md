@@ -2,8 +2,9 @@
 
 Use `curl -H "Authorization: Bearer BEARER TOKEN" URL`
 
-url can be like=https://api.twitter.com/2/tweets/search/recent?query=from:ucla
-
+URL examples are:
+- https://api.twitter.com/2/tweets/search/recent?query=from:ucla returns the 10 most recent tweets (id, text) from UCLA
+- 
 We need to figure out:
 - How to call other things (look at sample code)
 - How to turn json to csv
