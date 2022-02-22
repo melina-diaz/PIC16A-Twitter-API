@@ -1,6 +1,6 @@
 # PIC16A-Twitter-API
 
-Use `curl -H "Authorization: Bearer <b>BEARER TOKEN</b>" <b>URL</b>`
+Use curl -H "Authorization: Bearer **BEARER TOKEN**" **URL**
 
 url can be like=https://api.twitter.com/2/tweets/search/recent?query=from:ucla
 
