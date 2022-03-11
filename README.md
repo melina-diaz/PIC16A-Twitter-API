@@ -2,7 +2,7 @@
 Made by Melina Diaz, Tracy Charles, Michelle Pang
 
 **What's happening?**
-- Using the Twitter API, we made a dataframe of tweets about UCLA. With this dataframe, we can do cool stuff like sentiment analysis, clustering, etc
+- Using the Twitter API, we made a dataframe of tweets about UCLA. With this dataframe, we can do cool stuff like sentiment analysis, clustering, etc.
 
 
 **Files:**
@@ -10,10 +10,6 @@ Made by Melina Diaz, Tracy Charles, Michelle Pang
 2. `requirements.txt` 
 3. `making_dataframe.py` makes the JSON and CSV files that are necessary to make the dataframe. You don't need this, since we supplied a CSV file, but if you want to modify the CSV file to look for different keywords, include different features, this is how you would do it. Run make_call(bearer_token, ...)
 4. 
-Use `curl -H "Authorization: Bearer BEARER TOKEN" URL` in command line
-
-URL examples are:
-- https://api.twitter.com/2/tweets/search/recent?query=from:ucla returns the 10 most recent tweets (id, text) from UCLA
 
 **Sources:**
 - https://towardsdatascience.com/an-extensive-guide-to-collecting-tweets-from-twitter-api-v2-for-academic-research-using-python-3-518fcb71df2a
