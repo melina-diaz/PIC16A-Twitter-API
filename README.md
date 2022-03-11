@@ -15,6 +15,10 @@ Use `curl -H "Authorization: Bearer BEARER TOKEN" URL` in command line
 URL examples are:
 - https://api.twitter.com/2/tweets/search/recent?query=from:ucla returns the 10 most recent tweets (id, text) from UCLA
 
+**Sources:**
+- https://towardsdatascience.com/an-extensive-guide-to-collecting-tweets-from-twitter-api-v2-for-academic-research-using-python-3-518fcb71df2a
+- https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query
+
 1. Project name.
 2. Names of group members (if you don’t want to for privacy, add usernames).
 3. Short description of the project.
