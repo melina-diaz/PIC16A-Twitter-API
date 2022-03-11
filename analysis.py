@@ -18,13 +18,18 @@ class Analysis:
         '''Purpose:
         Arguments: 
         Return: '''
+        def clean_link(string):
+            string = re.sub('https://t.co\S*\w+|\n', ' ', string)
+            return string
         from sklearn.feature_extraction.text import CountVectorizer
         vec = CountVectorizer(stop_words="english")
-        counts = vec.fit_transform(self.df['text'])
+        new=self.df
+        new['text'] = new['text'].apply(clean_link)
+        counts = vec.fit_transform(new['text'])
         counts = counts.toarray()
         vec.get_feature_names()
         count_tweetsandusers = pd.DataFrame(counts, columns=vec.get_feature_names())
-        big_count_tweetsandusers = pd.concat((self.df["text"],count_tweetsandusers), axis= 1)
+        big_count_tweetsandusers = pd.concat((new["text"],count_tweetsandusers), axis= 1)
         X = big_count_tweetsandusers.drop(columns = "text")
         from sklearn.decomposition import NMF
         model = NMF(n_components = 10, init="random", random_state=0)
@@ -34,8 +39,8 @@ class Analysis:
             orders = np.argsort(model.components_, axis = 1)
             important_words = np.array(X.columns)[orders]
             return important_words[component][-num_words:]
-        for i in range (10):
-            print(top_words(X, model, i, 4))
+        for i in range(num_topics):
+            print(top_words(X, model, i, num_words))
         return
     
     def get_sentiment(self):
