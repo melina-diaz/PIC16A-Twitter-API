@@ -1,4 +1,4 @@
-class Analysis:
+class analysis:
     def __init__(csv_name):
         '''Makes '''
         if type(csv_name) != str:
@@ -6,7 +6,7 @@ class Analysis:
         self.csv=csv_name
         self.df=pd.read_csv(csv_name) #you shouldn't alter the original df
         
-    def get_topics():
+    def get_topics(self):
         '''Purpose:
         Arguments: 
         Return: '''
@@ -30,20 +30,20 @@ class Analysis:
             print(top_words(X, model, i, 4))
         return
     
-    def get_sentiment():
+    def get_sentiment(self):
         '''Purpose:
         Arguments: 
         Return: '''
         #Tracy's code, feel free to change whatever
         return 
     
-    def predict():
+    def predict(self):
         '''Purpose:
         Arguments: 
         Return: '''
         #Melina's code, feel free to change whatever
         
-    def popularity(num):
+    def popularity(self, num):
         '''Purpose: To see which recent tweets are the most popular. Popularity is defined by the combined amount of likes, replies, and retweets
         Arguments: num is the amount of tweets we want to see
         Return: prints tweet
