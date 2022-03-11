@@ -15,15 +15,17 @@ import unicodedata
 #To add wait time between requests
 import time
 
-#the following code is from https://towardsdatascience.com/an-extensive-guide-to-collecting-tweets-from-twitter-api-v2-for-academic-research-using-python-3-518fcb71df2a
+#*****The following code is from https://towardsdatascience.com/an-extensive-guide-to-collecting-tweets-from-twitter-api-v2-for-academic-research-using-python-3-518fcb71df2a*****
 def create_headers(bearer_token):
+    '''docstring'''
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
     return headers
 
 def create_url(keyword, start_date, end_date, max_results = 100):
+    '''docstring'''
     search_url = "https://api.twitter.com/2/tweets/search/recent" #Change to the endpoint you want to collect data from
 
-#CHANGE THIS PART TO DISPLAY DIFFERENT VALUES. Next to each field is all possible options
+#*****CHANGE THIS PART TO DISPLAY DIFFERENT VALUES. Next to each field is all possible options******
     query_params = {'query': keyword,
                     'max_results': max_results,
                     # expansions is if you want the author, geo, etc. attributes included below to show up in the JSON
@@ -38,6 +40,7 @@ def create_url(keyword, start_date, end_date, max_results = 100):
     return (search_url, query_params)
 
 def connect_to_endpoint(url, headers, params, next_token = None):
+    '''docstring'''
     params['next_token'] = next_token   #params object received from create_url function
     response = requests.request("GET", url, headers = headers, params = params)
     print("Endpoint Response Code: " + str(response.status_code))
@@ -45,16 +48,26 @@ def connect_to_endpoint(url, headers, params, next_token = None):
         raise Exception(response.status_code, response.text)
     return response.json()
 
+#***** End of unoriginal code****** 
+
+
+
 def make_call(bearer_token, keyword="ucla -is:retweet lang:en", start_time = "2022-02-01T00:00:00.000Z", end_time = "2022-02-28T00:00:00.000Z", max_results = 100):
     '''
     Purpose: Calls the appropriate functions to turn the tweet data string from the API into 
     a JSON, which is then converted into a CSV file on computer
+    csv and json file can't already exist
     
     Arguments:
         bearer_token: the token from your Twitter API Developer account to use your API
-        keyword: the criteria that the tweet/user/geo/etc needs to fulfill in order to be returned. operators you can use https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query
-        start_time, end_time: I honestly don't know what this does, doesn't affect results as far as I can tell
+        keyword: the criteria that the tweet/user/geo/etc needs to fulfill in order to be returned. operators you can use https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query Default looks for tweets (not retweets) in english that have the substring ucla
+        start_time, end_time: I honestly don't know what this does, doesn't affect results as far as I can tell, probably because we are using recent endpoint instead of all
         max_results: tweets returned, int [10, 100]
+        
+    Return:
+        prints Twitter's endpoint code. 200 if works properly, not 200 otherwise.
+        makes uclajson.json, the uncleaned output of the Twitter API in the same folder as this file
+        makes uclatweets.csv, the cleaned output with twitters, users and their attributes        
         
     '''
     headers = create_headers(bearer_token)
@@ -75,6 +88,6 @@ def make_call(bearer_token, keyword="ucla -is:retweet lang:en", start_time = "20
     users["tweet_count_y"] = users["public_metrics"].map(lambda x:x["tweet_count"])
     users["listed_count_y"] = users["public_metrics"].map(lambda x:x["listed_count"])
     df=pd.merge(tweets,users, on="author_id")
+    df=df.drop(columns=["public_metrics_x", "author_id", "public_metrics_y"])
     df.to_csv('uclatweets.csv')
     
-#make_call('put token hereeeeeee')
