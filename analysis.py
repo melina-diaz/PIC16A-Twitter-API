@@ -1,4 +1,4 @@
-class analysis:
+class Analysis:
     def __init__(csv_name):
         '''Makes '''
         if type(csv_name) != str:
