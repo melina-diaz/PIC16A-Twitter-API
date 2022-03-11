@@ -53,8 +53,11 @@ def make_call(bearer_token, keyword="ucla -is:retweet lang:en", start_time = "20
     users = pd.DataFrame(file["includes"]["users"])
     places = pd.DataFrame(file["includes"]["places"])
     users["author_id"]=users["id"]
+    tweets["retweet_count"] = tweets["public_metrics"].map(lambda x:x["retweet_count"])
+    tweets["reply_count"] = tweets["public_metrics"].map(lambda x:x["reply_count"])
+    tweets["like_count"] = tweets["public_metrics"].map(lambda x:x["like_count"])
     df=pd.merge(tweets,users, on="author_id")
     df.to_csv('uclatweets.csv')
     
-make_call('put token hereeeeeee')
+#make_call('AAAAAAAAAAAAAAAAAAAAAKVtZgEAAAAAl9ydWGRRbzGoJ%2BtX9BQX2nqJOnI%3DDEZ9oWPKslhrVmlTMxyKbiWybhABOyAjLgGGhdZwAK0N9xrm8W')
 #how to run this in the command line....
