@@ -59,5 +59,5 @@ def make_call(bearer_token, keyword="ucla -is:retweet lang:en", start_time = "20
     df=pd.merge(tweets,users, on="author_id")
     df.to_csv('uclatweets.csv')
     
-#make_call('AAAAAAAAAAAAAAAAAAAAAKVtZgEAAAAAl9ydWGRRbzGoJ%2BtX9BQX2nqJOnI%3DDEZ9oWPKslhrVmlTMxyKbiWybhABOyAjLgGGhdZwAK0N9xrm8W')
+#make_call('')
 #how to run this in the command line....
