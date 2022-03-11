@@ -78,7 +78,7 @@ def make_call(bearer_token, keyword="ucla -is:retweet lang:en", start_time = "20
     file = json.load(open(r'uclajson.json'))
     tweets = pd.DataFrame(file["data"])
     users = pd.DataFrame(file["includes"]["users"])
-    places = pd.DataFrame(file["includes"]["places"])
+    #places = pd.DataFrame(file["includes"]["places"])
     users["author_id"]=users["id"]
     tweets["retweet_count_x"] = tweets["public_metrics"].map(lambda x:x["retweet_count"])
     tweets["reply_count_x"] = tweets["public_metrics"].map(lambda x:x["reply_count"])
