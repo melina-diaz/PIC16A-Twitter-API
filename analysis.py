@@ -34,8 +34,8 @@ class Analysis:
             orders = np.argsort(model.components_, axis = 1)
             important_words = np.array(X.columns)[orders]
             return important_words[component][-num_words:]
-        for i in range (**kwargs):
-            print(top_words(X, model, i, **kwargs))
+        for i in range (10):
+            print(top_words(X, model, i, 4))
         return
     
     def get_sentiment(self):
