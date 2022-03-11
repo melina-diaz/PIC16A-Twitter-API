@@ -1,4 +1,9 @@
 # PIC16A-Twitter-API
+Made by Melina Diaz, Tracy Charles, Michelle Pang
+
+Goals:
+- Using the Twitter API, make a dataframe of tweets about UCLA
+- Do cool stuff like sentiment analysis, clustering, etc. on the dataframe
 
 
 Use `curl -H "Authorization: Bearer BEARER TOKEN" URL` in command line
