@@ -4,6 +4,8 @@ from wordcloud import WordCloud
 from textblob import TextBlob
 import re
 import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import NMF
 
 class Analysis:
     def __init__(self, csv_name):
@@ -21,7 +23,6 @@ class Analysis:
         def clean_link(string):
             string = re.sub('https://t.co\S*\w+|\n', ' ', string)
             return string
-        from sklearn.feature_extraction.text import CountVectorizer
         vec = CountVectorizer(stop_words="english")
         new=self.df
         new['text'] = new['text'].apply(clean_link)
@@ -31,10 +32,8 @@ class Analysis:
         count_tweetsandusers = pd.DataFrame(counts, columns=vec.get_feature_names())
         big_count_tweetsandusers = pd.concat((new["text"],count_tweetsandusers), axis= 1)
         X = big_count_tweetsandusers.drop(columns = "text")
-        from sklearn.decomposition import NMF
         model = NMF(num_topics, init="random", random_state=0)
         model.fit(X)
-        import numpy as np
         def top_words(X, model, component, num_words):
             orders = np.argsort(model.components_, axis = 1)
             important_words = np.array(X.columns)[orders]
