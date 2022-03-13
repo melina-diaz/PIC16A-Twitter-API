@@ -14,7 +14,7 @@ class Analysis:
         self.df=pd.read_csv(csv_name) #you shouldn't alter the original df
         self.df=self.df.drop(columns=["Unnamed: 0"])
         
-    def get_topics(self):
+    def get_topics(self, num_topics=10, num_words=4):
         '''Purpose:
         Arguments: 
         Return: '''
@@ -32,7 +32,7 @@ class Analysis:
         big_count_tweetsandusers = pd.concat((new["text"],count_tweetsandusers), axis= 1)
         X = big_count_tweetsandusers.drop(columns = "text")
         from sklearn.decomposition import NMF
-        model = NMF(n_components = 10, init="random", random_state=0)
+        model = NMF(num_topics, init="random", random_state=0)
         model.fit(X)
         import numpy as np
         def top_words(X, model, component, num_words):
@@ -133,9 +133,10 @@ class Analysis:
         if type(num) != int:
             raise TypeError("csv_name should be a string, specifically the path to the csv of tweets")
         new=pd.DataFrame(self.df["text"])
+        new["username"]=self.df["username"]
         new["popularity"]= self.df["retweet_count_x"]+ self.df["reply_count_x"]+ self.df["like_count_x"]
         new=new.sort_values("popularity", ascending=False).reset_index()
         for i in range(num):
-            print("\033[1m#" + str(i+1) +" with " + str(new["popularity"][i+1]) + " popularity score: \033[0m")
+            print("\033[1m#" + str(i+1) +" with " + str(new["popularity"][i+1]) + " popularity score by @" + str(new["username"][i+1]) + " :\033[0m")
             print(new["text"][i+1] +"\n")
         
