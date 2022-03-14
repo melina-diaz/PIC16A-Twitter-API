@@ -17,9 +17,9 @@ class Analysis:
         self.df=self.df.drop(columns=["Unnamed: 0"])
         
     def get_topics(self, num_topics=10, num_words=4):
-        '''Purpose:
-        Arguments: 
-        Return: '''
+        '''Purpose: to identify what topics are most-talked about at UCLA 
+        Arguments: num_topics is the number of topics the words are grouped by and num_words is the number of words associated with each topic
+        Return: most frequently used words associated with by topic '''
         def clean_link(string):
             string = re.sub('https://t.co\S*\w+|\n', ' ', string)
             return string
