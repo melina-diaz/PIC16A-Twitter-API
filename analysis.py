@@ -90,11 +90,12 @@ class Analysis:
 
         # define function to clean each sentiment text
         def get_cleaned_text(df1, sentiment):
+            # get dataframe for specfic sentiment
             out = df1.groupby('sentiment').get_group(sentiment)
             out = out['text']
             out = ' '.join(x for x in out)
             # get rid of links
-            out = re.sub('https://t.co\S*\w+|\n', '', out)
+            out = re.sub('https://t.co\S*\w+|\n', ' ', out)
             # get rid of punctuation
             out = re.sub(r'[^\w\s]', ' ', out)
             # get rid of numbers
