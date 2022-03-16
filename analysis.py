@@ -43,9 +43,19 @@ class Analysis:
         return
     
     def get_sentiment(self):
-        '''Purpose:
-        Arguments: 
-        Return: '''
+        '''
+        Purpose: Categorize each tweet into Negative, Neutral, or Positive Sentiments. 
+                 Compare the counts and map out words that are associated with each sentiment.
+        Arguments: self
+        Returns: 1. Bar plot of tweet counts for each sentiment
+                 2. Word cloud of negative sentiment tweets
+                 3. Word cloud of neutral sentiment tweets
+                 4. Word cloud of positive sentiment tweets
+                 NOTE:   The word cloud functions generate word clouds that are positioned 
+                         and styled differently each run. Therefore, it is expected that
+                         the word clouds are not precisely the same for each user running
+                         the code.
+        '''
 
         # get new subset dataframe 
         df1 = self.df[['created_at_x', 'text']]
@@ -82,9 +92,17 @@ class Analysis:
         def get_cleaned_text(df1, sentiment):
             out = df1.groupby('sentiment').get_group(sentiment)
             out = out['text']
-            out = " ".join(x for x in out)
+            out = ' '.join(x for x in out)
             # get rid of links
-            out = re.sub('https://t.co\S*\w+|\n', ' ', out)
+            out = re.sub('https://t.co\S*\w+|\n', '', out)
+            # get rid of punctuation
+            out = re.sub(r'[^\w\s]', ' ', out)
+            # get rid of numbers
+            out = ''.join(x for x in out if not x.isdigit())
+            # get rid of character len <=3 strings
+            out = ' '.join([x for x in out.split() if len(x) > 3])
+            # change all characters to lowercase
+            out = out.lower()
             return out
 
         # get text of each sentiment
@@ -106,12 +124,13 @@ class Analysis:
         def get_word_cloud(text, func, title):
             wordcloud = WordCloud(background_color = 'white').generate(text)
             wordcloud.recolor(color_func = func)
-            plt.figure(figsize = (15, 15))
-            plt.imshow(wordcloud, interpolation = 'bilinear')
+            plt.figure(figsize = (8, 8))
             plt.axis("off")
+            plt.tight_layout(pad=0)
             plt.title(title)
+            plt.imshow(wordcloud, interpolation = 'bilinear')
             return plt
-
+        
         negative_word_cloud = get_word_cloud(negative_text, red_color_func, 'Word Cloud of Negative Tweets')
         neutral_word_cloud = get_word_cloud(neutral_text, grey_color_func, 'Word Cloud of Neutral Tweets')
         positive_word_cloud = get_word_cloud(neutral_text, green_color_func, 'Word Cloud of Positive Tweets')
