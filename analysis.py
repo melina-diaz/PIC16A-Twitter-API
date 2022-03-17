@@ -145,10 +145,16 @@ class Analysis:
         '''
         if type(num) != int:
             raise TypeError("num should be an integer")
+        
+        #makes copy of dataframe, cleans it, and adds popularity column
         new=pd.DataFrame(self.df["text"])
         new["username"]=self.df["username"]
         new["popularity"]= self.df["retweet_count_x"]+ self.df["reply_count_x"]+ self.df["like_count_x"]
+        
+        #sorts by popularity
         new=new.sort_values("popularity", ascending=False).reset_index()
+        
+        #prints num tweets
         for i in range(num):
             print("\033[1m#" + str(i+1) +" with " + str(new["popularity"][i+1]) + " popularity score by @" + str(new["username"][i+1]) + " :\033[0m")
             print(new["text"][i+1] +"\n")
