@@ -52,7 +52,7 @@ def connect_to_endpoint(url, headers, params, next_token = None):
                headers: the format of the bearer token made by create_headers()
                params: parameters of the call, returned by create_url()
                next_token: since only 100 calls can be returned in one API call, you can pick up from where you left off and access the remaining results with a next token
-    Returns: JSON of results that fulfills url, headers, params and next_token. The JSON separates the tweets (data), users, places, and metadata.
+    Returns: JSON of results that fulfills url, headers, params and next_token. The JSON separates the tweets (data), users, places, and metadata. Prints endpoint code. 200 is good, everything else is bad
     '''
     params['next_token'] = next_token   #params object received from create_url function
     response = requests.request("GET", url, headers = headers, params = params)
