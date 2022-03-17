@@ -47,7 +47,13 @@ def create_url(keyword, start_date, end_date, max_results = 100):
     return (search_url, query_params)
 
 def connect_to_endpoint(url, headers, params, next_token = None):
-    '''Purpose: '''
+    '''Purpose: Helps make make_call() by calling the API and making the JSON
+    Arguments: url: the endpoint URL returned by create_url()
+               headers: the format of the bearer token made by create_headers()
+               params: parameters of the call, returned by create_url()
+               next_token: since only 100 calls can be returned in one API call, you can pick up from where you left off and access the remaining results with a next token
+    Returns: JSON of results that fulfills url, headers, params and next_token. The JSON separates the tweets (data), users, places, and metadata.
+    '''
     params['next_token'] = next_token   #params object received from create_url function
     response = requests.request("GET", url, headers = headers, params = params)
     print("Endpoint Response Code: " + str(response.status_code))
