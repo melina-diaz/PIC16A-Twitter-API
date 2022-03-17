@@ -9,7 +9,7 @@ from sklearn.decomposition import NMF
 
 class Analysis:
     def __init__(self, csv_name):
-        '''Makes '''
+        '''Constructor of Analysis object. Stores csv file name and dataframe'''
         if type(csv_name) != str:
             raise TypeError("csv_name should be a string, specifically the path to the csv of tweets")
         self.csv=csv_name
@@ -137,12 +137,6 @@ class Analysis:
         positive_word_cloud = get_word_cloud(neutral_text, green_color_func, 'Word Cloud of Positive Tweets')
 
         return fig, negative_word_cloud, neutral_word_cloud, positive_word_cloud
-    
-    def predict(self):
-        '''Purpose:
-        Arguments: 
-        Return: '''
-        #Melina's code, feel free to change whatever
         
     def popularity(self, num):
         '''Purpose: To see which recent tweets are the most popular. Popularity is defined by the combined amount of likes, replies, and retweets
@@ -150,7 +144,7 @@ class Analysis:
         Return: prints tweet
         '''
         if type(num) != int:
-            raise TypeError("csv_name should be a string, specifically the path to the csv of tweets")
+            raise TypeError("num should be an integer")
         new=pd.DataFrame(self.df["text"])
         new["username"]=self.df["username"]
         new["popularity"]= self.df["retweet_count_x"]+ self.df["reply_count_x"]+ self.df["like_count_x"]
