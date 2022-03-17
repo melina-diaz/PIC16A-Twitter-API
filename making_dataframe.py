@@ -18,12 +18,18 @@ import unicodedata
 import time
 
 def create_headers(bearer_token):
-    '''docstring'''
+    '''Purpose: Helps make make_call() run.
+    Arguments: bearer_token: Your bearer token for Twitter's API
+    Return: format of bearer token used for make_call()'''
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
     return headers
 
 def create_url(keyword, start_date, end_date, max_results = 100):
-    '''docstring start_time, end_time: This doesn't affect results as far as I can tell, probably because we are using recent endpoint instead of all'''
+    '''Purpose: Helps make make_call() run by getting the endpoint url and specifying parameters, which can be modified in this function
+    Arguments: keyword: string of what to search for. It has the ability to specify word/user/place of tweet
+               start_time, end_time: This doesn't affect results as far as I can tell, probably because we are using recent endpoint instead of all
+               max_result: the amount of results to return in one API call, max at 100.
+    Return: URL and parameters that the Twitter API searches for'''
     search_url = "https://api.twitter.com/2/tweets/search/recent" #Change to the endpoint you want to collect data from
 
 #*****CHANGE THIS PART TO DISPLAY DIFFERENT VALUES. Next to each field is all possible options******
@@ -41,7 +47,7 @@ def create_url(keyword, start_date, end_date, max_results = 100):
     return (search_url, query_params)
 
 def connect_to_endpoint(url, headers, params, next_token = None):
-    '''docstring'''
+    '''Purpose: '''
     params['next_token'] = next_token   #params object received from create_url function
     response = requests.request("GET", url, headers = headers, params = params)
     print("Endpoint Response Code: " + str(response.status_code))
