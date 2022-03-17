@@ -6,6 +6,9 @@ import re
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import NMF
+from sklearn import tree
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 
 class Analysis:
     def __init__(self, csv_name):
