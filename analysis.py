@@ -159,6 +159,9 @@ class Analysis:
         
         #prints num tweets
         for i in range(num):
-            print("\033[1m#" + str(i+1) +" with " + str(new["popularity"][i+1]) + " popularity score by @" + str(new["username"][i+1]) + " :\033[0m")
-            print(new["text"][i+1] +"\n")
+            try:
+                print("\033[1m#" + str(i+1) +" with " + str(new["popularity"][i+1]) + " popularity score by @" + str(new["username"][i+1]) + " :\033[0m")
+                print(new["text"][i+1] +"\n")
+            except(KeyError): #if out of scope aka num > # rows in df, then don't call error, just stop printing
+                break
         
