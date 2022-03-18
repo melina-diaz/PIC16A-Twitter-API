@@ -1,10 +1,6 @@
 # PIC16A-Twitter-API
 Made by Melina Diaz, Tracy Charles, Michelle Pang
 
-**What's happening?**
-- Using the Twitter API, we made a dataframe of tweets about UCLA. With this dataframe, we can do cool stuff like sentiment analysis, clustering, etc.
-
-
 **Files:**
 3. Although we provided a `making_dataframe.py` makes the JSON and CSV files that are necessary to make the dataframe. You don't need this, since we supplied a CSV file, but if you want to modify the CSV file to look for different keywords, include different features, this is how you would do it. Run make_call(bearer_token, ...)
 
